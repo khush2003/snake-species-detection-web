@@ -216,7 +216,7 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
             frame_width = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
             frame_height = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
             codec = int(vid_cap.get(cv2.CAP_PROP_FOURCC))
-            vid_writer = cv2.VideoWriter(f'{file_id}.{ext}',  
+            vid_writer = cv2.VideoWriter(f'{file_id}{ext}',  
                                 codec, 
                                 fps, (frame_width, frame_height)) 
             frames = int(vid_cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -251,7 +251,7 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
                     vid_writer.release()
                     break
                 
-            saved_file_path = Path(f'{file_id}.{ext}')
+            saved_file_path = Path(f'{file_id}{ext}')
             st.sidebar.success(f"Prediction Completed!")
             with open(saved_file_path, "rb") as file:
                 video_bytes = file.read()
@@ -355,6 +355,8 @@ def play_stored_video(conf, model):
         st.video(video_bytes)
         ext = '.mp4'
     
+    print(ext)
+    
     if st.sidebar.button('Detect Video Objects'):
         progress_bar = st.progress(0, "Detecing Objects...")
 
@@ -369,7 +371,7 @@ def play_stored_video(conf, model):
         frame_width = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         frame_height = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         codec = int(vid_cap.get(cv2.CAP_PROP_FOURCC))
-        vid_writer = cv2.VideoWriter(f'{file_id}.{ext}',  
+        vid_writer = cv2.VideoWriter(f'{file_id}{ext}',  
                             codec, 
                             fps, (frame_width, frame_height)) 
         
@@ -405,8 +407,8 @@ def play_stored_video(conf, model):
                 vid_cap.release()
                 vid_writer.release()
                 break
-        
-        saved_file_path = Path(f'{file_id}.{ext}')
+        print(ext)
+        saved_file_path = Path(f'{file_id}{ext}')
         st.sidebar.success(f"Prediction Completed!")
         with open(saved_file_path, "rb") as file:
             video_bytes = file.read()
