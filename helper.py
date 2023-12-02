@@ -206,8 +206,8 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
     if st.sidebar.button('Detect Objects'):
         try:
             yt = YouTube(source_youtube)
-            ext = ".mp4"
-            stream = yt.streams.filter(file_extension="mp4", res=720).first()
+            ext = ".mkv"
+            stream = yt.streams.filter(file_extension="mkv", res=720).first()
             vid_cap = cv2.VideoCapture(stream.url)
             results_display = st.expander("Detection Results")
 
@@ -353,9 +353,9 @@ def play_stored_video(conf, model):
         with open(video_path, "rb") as file:
             video_bytes = file.read()
         st.video(video_bytes)
-        ext = '.mp4'
-    
-    print(ext)
+
+    ext = '.mkv'
+
     
     if st.sidebar.button('Detect Video Objects'):
         progress_bar = st.progress(0, "Detecing Objects...")
@@ -407,7 +407,6 @@ def play_stored_video(conf, model):
                 vid_cap.release()
                 vid_writer.release()
                 break
-        print(ext)
         saved_file_path = Path(f'{file_id}{ext}')
         st.sidebar.success(f"Prediction Completed!")
         with open(saved_file_path, "rb") as file:
