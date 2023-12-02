@@ -8,6 +8,11 @@ from pytube import YouTube
 import tempfile
 from pathlib import Path
 import uuid
+from streamlit_webrtc import webrtc_streamer
+import av
+
+
+
 
 import settings
 
@@ -272,29 +277,41 @@ def play_webcam(conf, snakeModel, speciesModel):
     Raises:
         None
     """
-    source_webcam = settings.WEBCAM_PATH
+    def video_frame_callback(frame):
+        img = frame.to_ndarray(format="bgr24")
+        results = speciesModel.track(img, conf=conf, imgsz=512, persist=True)
+        if len(results[0].boxes) == 0:
+            results = snakeModel.track(img, conf=conf, imgsz=512, persist=True)
+        res_plotted = results[0].plot()
+
+        return av.VideoFrame.from_ndarray(res_plotted, format="bgr24")
+
+
+    webrtc_streamer(key="example", video_frame_callback=video_frame_callback)
+    
     is_display_tracker, tracker = display_tracker_options()
     results = st.expander("Detection Results")
     if st.sidebar.button('Detect Objects'):
         try:
-            vid_cap = cv2.VideoCapture(source_webcam)
-            st_frame = st.empty()
-            while (vid_cap.isOpened()):
-                success, image = vid_cap.read()
-                if success:
-                    _display_detected_frames(conf,
-                                             speciesModel,
-                                             snakeModel,
-                                             st_frame,
-                                             image,
-                                             results,
-                                             is_display_tracker,
-                                             tracker,
-                                             log_results=True
-                                             )
-                else:
-                    vid_cap.release()
-                    break
+            a = 1
+            # vid_cap = cv2.VideoCapture(source_webcam)
+            # st_frame = st.empty()
+            # while (vid_cap.isOpened()):
+            #     success, image = vid_cap.read()
+            #     if success:
+            #         _display_detected_frames(conf,
+            #                                  speciesModel,
+            #                                  snakeModel,
+            #                                  st_frame,
+            #                                  image,
+            #                                  results,
+            #                                  is_display_tracker,
+            #                                  tracker,
+            #                                  log_results=True
+            #                                  )
+            #     else:
+            #         vid_cap.release()
+            #         break
         except Exception as e:
             st.sidebar.error("Error loading video: " + str(e))
 
