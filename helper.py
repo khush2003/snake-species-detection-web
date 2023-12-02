@@ -257,7 +257,7 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
                 video_bytes = file.read()
             st.video(video_bytes)
             progress_bar.progress(100, "Done!")
-            os.remove(saved_file_path)
+            # os.remove(saved_file_path)
 
         except Exception as e:
             st.sidebar.error("Error loading video: " + str(e))
@@ -414,7 +414,7 @@ def play_stored_video(conf, model):
             video_bytes = file.read()
         st.video(video_bytes)
         progress_bar.progress(100, "Done!")
-        os.remove(saved_file_path)
+        # os.remove(saved_file_path)
     
         
         
