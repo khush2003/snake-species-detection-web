@@ -277,6 +277,7 @@ def play_webcam(conf, snakeModel, speciesModel):
     Raises:
         None
     """
+    st.camera_input("Take a picture")
     st.warning("#### ⚠️ Please read the wraning below before proceeding.")
     with st.expander("Note: Webcam will not work on deployed app. Please run the app locally to use the webcam. See instructions by exapnding this"):
         st.warning("If you are running this app locally, please ignore this message.")
