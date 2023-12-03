@@ -198,6 +198,8 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
     Raises:
         None
     """
+    st.write("# Note: Webcam will not work on this deployed app. Please run the app locally to use the webcam.")
+    
     source_youtube = st.sidebar.text_input("YouTube Video url")
     counter_max = st.slider("Inference Speed (Higher speed = Lower FPS)", 1, 100, 1)
 
