@@ -207,7 +207,7 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
         try:
             yt = YouTube(source_youtube)
             ext = ".mkv"
-            stream = yt.streams.filter(file_extension="mkv", res=720).first()
+            stream = yt.streams.filter(file_extension="mp4", res=720).first()
             vid_cap = cv2.VideoCapture(stream.url)
             results_display = st.expander("Detection Results")
 
