@@ -206,8 +206,8 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
     if st.sidebar.button('Detect Objects'):
         try:
             yt = YouTube(source_youtube)
-            ext = ".avi"
-            stream = yt.streams.filter(file_extension="avi", res=720).first()
+            ext = ".mp4"
+            stream = yt.streams.filter(file_extension="mp4", res=720).first()
             vid_cap = cv2.VideoCapture(stream.url)
             results_display = st.expander("Detection Results")
 
@@ -215,7 +215,7 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
             fps = vid_cap.get(cv2.CAP_PROP_FPS) / counter_max
             frame_width = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
             frame_height = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-            codec = cv2.VideoWriter_fourcc(*'XVID')
+            codec = int(vid_cap.get(cv2.CAP_PROP_FOURCC))
             vid_writer = cv2.VideoWriter(f'{file_id}{ext}',  
                                 codec, 
                                 fps, (frame_width, frame_height)) 
@@ -353,8 +353,9 @@ def play_stored_video(conf, model):
         with open(video_path, "rb") as file:
             video_bytes = file.read()
         st.video(video_bytes)
+        ext = '.mp4'
     
-    ext = '.mp4'
+    print(ext)
     
     if st.sidebar.button('Detect Video Objects'):
         progress_bar = st.progress(0, "Detecing Objects...")
@@ -369,7 +370,7 @@ def play_stored_video(conf, model):
         fps = vid_cap.get(cv2.CAP_PROP_FPS) / counter_max
         frame_width = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         frame_height = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        codec = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+        codec = int(vid_cap.get(cv2.CAP_PROP_FOURCC))
         vid_writer = cv2.VideoWriter(f'{file_id}{ext}',  
                             codec, 
                             fps, (frame_width, frame_height)) 
