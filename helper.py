@@ -370,7 +370,7 @@ def play_stored_video(conf, model):
         fps = vid_cap.get(cv2.CAP_PROP_FPS) / counter_max
         frame_width = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         frame_height = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        codec = int(vid_cap.get(cv2.CAP_PROP_FOURCC))
+        codec = cv2.VideoWriter_fourcc(*'h264')
         vid_writer = cv2.VideoWriter(f'{file_id}{ext}',  
                             codec, 
                             fps, (frame_width, frame_height)) 
