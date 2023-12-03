@@ -206,7 +206,7 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
     if st.sidebar.button('Detect Objects'):
         try:
             yt = YouTube(source_youtube)
-            ext = ".mkv"
+            ext = ".webm"
             stream = yt.streams.filter(file_extension="mp4", res=720).first()
             vid_cap = cv2.VideoCapture(stream.url)
             results_display = st.expander("Detection Results")
@@ -215,7 +215,7 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
             fps = vid_cap.get(cv2.CAP_PROP_FPS) / counter_max
             frame_width = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
             frame_height = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-            codec = int(vid_cap.get(cv2.CAP_PROP_FOURCC))
+            codec = cv2.VideoWriter_fourcc(*'VP90')
             vid_writer = cv2.VideoWriter(f'{file_id}{ext}',  
                                 codec, 
                                 fps, (frame_width, frame_height)) 
