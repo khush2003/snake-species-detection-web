@@ -279,7 +279,7 @@ def play_webcam(conf, snakeModel, speciesModel):
     """
     st.warning("#### ⚠️ Please read the warning below before proceeding.")
     with st.expander("Note: Webcam will not work on deployed app. Please run the app locally to use the webcam. See instructions by exapnding this"):
-        st.warning("When using a webcam for live inference, the result will be very bad predictions because of the need for fast inference, to keep this realtime. If you want accurate inference we recommend using a video file instead.")
+        st.warning("When using a webcam for live inference, the result will be inaccurate predictions because of the need for fast inference, to keep this realtime. If you want accurate inference we recommend using a video file instead.")
         st.warning("If you are running this app locally, please ignore this message.")
         st.info("To run the app locally, please follow the instructions in the README.md file.")
         st.write("Github Repo:") 
