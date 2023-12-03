@@ -277,11 +277,15 @@ def play_webcam(conf, snakeModel, speciesModel):
     Raises:
         None
     """
-    for i in range(5):
-        cap = cv2.VideoCapture(i)
-        if cap.read()[0]:
-            print(f"Camera index {i} is available")
-        cap.release()
+    try:
+        for i in range(5):
+            cap = cv2.VideoCapture(i)
+            if cap.read()[0]:
+                print(f"Camera index {i} is available")
+            cap.release()
+    except Exception as e:
+        st.sidebar.error("Error: " + str(e))
+
 
     st.camera_input("Take a picture")
     st.warning("#### ⚠️ Please read the wraning below before proceeding.")
