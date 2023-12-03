@@ -277,10 +277,12 @@ def play_webcam(conf, snakeModel, speciesModel):
     Raises:
         None
     """
-    st.write("# Note: Webcam will not work on this deployed app. Please run the app locally to use the webcam.")
-    st.write("## To run the app locally, please follow the instructions in the README.md file.")
-    st.write("## Github Repo: https://github.com/khush2003/snake-species-detection-web")
-    st.write("## If you are running this app locally ignore this message.")
+    st.warning("#### ⚠️ Please read the wraning below before proceeding.")
+    with st.expander("Note: Webcam will not work on deployed app. Please run the app locally to use the webcam. See instructions by exapnding this"):
+        st.warning("If you are running this app locally, please ignore this message.")
+        st.info("To run the app locally, please follow the instructions in the README.md file.")
+        st.write("Github Repo:") 
+        st.code("https://github.com/khush2003/snake-species-detection-web")
     source_webcam = settings.WEBCAM_PATH
     is_display_tracker, tracker = display_tracker_options()
     results = st.expander("Detection Results")
