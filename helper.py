@@ -278,11 +278,11 @@ def play_webcam(conf, snakeModel, speciesModel):
         None
     """
     for i in range(5):
-    cap = cv2.VideoCapture(i)
-    if cap.read()[0]:
-        print(f"Camera index {i} is available")
-    cap.release()
-    
+        cap = cv2.VideoCapture(i)
+        if cap.read()[0]:
+            print(f"Camera index {i} is available")
+        cap.release()
+
     st.camera_input("Take a picture")
     st.warning("#### ⚠️ Please read the wraning below before proceeding.")
     with st.expander("Note: Webcam will not work on deployed app. Please run the app locally to use the webcam. See instructions by exapnding this"):
