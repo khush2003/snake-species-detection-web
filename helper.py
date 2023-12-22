@@ -8,7 +8,6 @@ from pytube import YouTube
 import tempfile
 from pathlib import Path
 import uuid
-import av
 
 
 
