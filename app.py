@@ -9,6 +9,9 @@ import streamlit as st
 import settings
 import helper
 
+# TODO: Add function for checking if CUDA gpu is available, if it is then use it, else use CPU
+
+
 # Setting page layout
 st.set_page_config(
     page_title="Snake Species Detection using YOLOv8",

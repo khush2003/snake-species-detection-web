@@ -60,10 +60,10 @@ def process_image(conf, speciesModel: YOLO, snakeModel:YOLO):
         else:
             if st.sidebar.button('Detect Objects'):
 
-                res = speciesModel.track(uploaded_image, conf=conf, imgsz=512, device=0)
+                res = speciesModel.track(uploaded_image, conf=conf, imgsz=512)
                 # Transfer to snake model if no species detected
                 if len(res[0].boxes) == 0:
-                    res = snakeModel.track(uploaded_image, conf=conf, imgsz=512, device=0)
+                    res = snakeModel.track(uploaded_image, conf=conf, imgsz=512)
 
                 classnames : dict = res[0].names
                 boxes = res[0].boxes
@@ -146,15 +146,15 @@ def _display_detected_frames(conf, speciesModel: YOLO, snakeModel:YOLO, st_frame
 
     # Display object tracking, if specified
     if is_display_tracking:
-        res = speciesModel.track(image, conf=conf, persist=True, tracker=tracker, imgsz=512, device=0)
+        res = speciesModel.track(image, conf=conf, persist=True, tracker=tracker, imgsz=512)
         if len(res[0].boxes) == 0:
-            res = snakeModel.track(image, conf=conf, persist=True, tracker=tracker, imgsz=512, device=0)
+            res = snakeModel.track(image, conf=conf, persist=True, tracker=tracker, imgsz=512)
 
     else:
         # Predict the objects in the image using the YOLOv8 model
-        res = speciesModel.predict(image, conf=conf, imgsz=512, device=0)
+        res = speciesModel.predict(image, conf=conf, imgsz=512)
         if len(res[0].boxes) == 0:
-            res = snakeModel.predict(image, conf=conf, imgsz=512, device=0)
+            res = snakeModel.predict(image, conf=conf, imgsz=512)
 
     # # Plot the detected objects on the video frame
     res_plotted = res[0].plot()
@@ -230,9 +230,9 @@ def play_youtube_video(conf, speciesModel: YOLO, snakeModel:YOLO):
                 success, image = vid_cap.read()
                 if success:
                     if counter % counter_max == 0:
-                        results = speciesModel.track(image, conf=conf, imgsz=512, persist=True, tracker=tracker, device=0)
+                        results = speciesModel.track(image, conf=conf, imgsz=512, persist=True, tracker=tracker)
                         if len(results[0].boxes) == 0:
-                            results = snakeModel.track(image, conf=conf, imgsz=512, persist=True, tracker=tracker, device=0)
+                            results = snakeModel.track(image, conf=conf, imgsz=512, persist=True, tracker=tracker)
                         res_plotted = results[0].plot()
                         st_frame.image(res_plotted,
                                     caption='Detected Video',
@@ -380,9 +380,9 @@ def play_stored_video(conf, model):
             counter += 1
             if success:
                 if counter % counter_max == 0:
-                    results = speciesModel.track(image, conf=conf, imgsz=512, persist=True, tracker=tracker, device=0)
+                    results = speciesModel.track(image, conf=conf, imgsz=512, persist=True, tracker=tracker)
                     if len(results[0].boxes) == 0:
-                        results = snakeModel.track(image, conf=conf, imgsz=512, persist=True, tracker=tracker, device=0)
+                        results = snakeModel.track(image, conf=conf, imgsz=512, persist=True, tracker=tracker)
                     res_plotted = results[0].plot()
                     st_frame.image(res_plotted,
                                 caption='Detected Video',
